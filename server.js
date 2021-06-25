@@ -1,19 +1,12 @@
 const express = require("express");
 const cors = require("cors");
+var path = require('path');
 const dbConfig = require("./app/config/db.config");
-
-const path = __dirname + '/app/views/';
 
 const app = express();
 
-// for serving frontend from backend
-app.use(express.static(path));
-
-var corsOptions = {
-  origin: "http://localhost:8081"
-};
-
-app.use(cors(corsOptions));
+// CORS
+app.use(cors());
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -21,9 +14,21 @@ app.use(express.json());
 // parse requests of content-type - application/x-www-form-urlencoded
 app.use(express.urlencoded({ extended: true }));
 
-app.get('/', function (req,res) {
-  res.sendFile(path + "index.html");
+// ---------------- ADD THIS ----------------
+// Serve static files from the React app
+app.use(express.static(path.join(__dirname, "frontend/build")));
+// --------------------------------
+// routes
+require("./app/routes/auth.routes")(app);
+require("./app/routes/user.routes")(app);
+// ---------------- ADD THIS ----------------
+// The "catchall" handler: for any request that doesn't
+// match one above, send back React's index.html file.
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+"/frontend/build/index.html"));
 });
+// --------------------------------
+
 
 const db = require("./app/models");
 const Role = db.role;
@@ -44,12 +49,8 @@ db.mongoose
     process.exit();
   });
 
-// routes
-require("./app/routes/auth.routes")(app);
-require("./app/routes/user.routes")(app);
-
 // set port, listen for requests
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
