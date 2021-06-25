@@ -69,11 +69,6 @@ const Login = (props) => {
   return (
     <div className="col-md-12">
       <div className="card card-container">
-        <img
-          src=""
-          alt="profile-img"
-          className="profile-img-card"
-        />
 
         <Form onSubmit={handleLogin} ref={form}>
           <div className="form-group">

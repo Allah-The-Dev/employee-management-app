@@ -17,6 +17,9 @@ import NavBar from "./components/Navbar";
 import { clearMessage } from "./actions/message";
 
 import { history } from "./helpers/history";
+import EmployeeList from "./components/EmployeeList";
+import AddEmployee from "./components/AddEmployee";
+import Employee from "./components/Employee";
 
 const App = () => {
 
@@ -31,7 +34,7 @@ const App = () => {
   return (
     <Router history={history}>
       <div>
-        
+
         <NavBar />
 
         <div className="container mt-3">
@@ -43,6 +46,9 @@ const App = () => {
             <Route path="/user" component={BoardUser} />
             <Route path="/mod" component={BoardModerator} />
             <Route path="/admin" component={BoardAdmin} />
+            <Route exact path="/employee" component={EmployeeList} />
+            <Route exact path="/add" component={AddEmployee} />
+            <Route path="/employee/:id" component={Employee} />
           </Switch>
         </div>
       </div>

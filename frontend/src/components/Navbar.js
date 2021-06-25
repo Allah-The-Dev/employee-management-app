@@ -42,7 +42,7 @@ const NavBar = () => {
 
         {showAdminBoard && (
           <li className="nav-item">
-            <Link to={"/admin"} className="nav-link">
+            <Link to={"/employee"} className="nav-link">
               Admin Board
             </Link>
           </li>
