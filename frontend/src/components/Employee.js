@@ -20,6 +20,7 @@ const Employee = (props) => {
   const getEmployee = id => {
     EmployeeService.get(id)
       .then(response => {
+        console.log(response.data);
         setCurrentEmployee(response.data);
         console.log(response.data);
       })
@@ -42,7 +43,7 @@ const Employee = (props) => {
       .then(response => {
         console.log(response);
 
-        setMessage("The tutorial was updated successfully!");
+        setMessage("The employee was updated successfully!");
       })
       .catch(e => {
         console.log(e);
@@ -52,7 +53,7 @@ const Employee = (props) => {
   const removeEmployee = () => {
     dispatch(deleteEmployee(currentEmployee.id))
       .then(() => {
-        props.history.push("/tutorials");
+        props.history.push("/employee");
       })
       .catch(e => {
         console.log(e);
@@ -83,15 +84,16 @@ const Employee = (props) => {
             < select
               onChange={handleInputChange}
               id="role"
-              className="form-select" >
+              className="form-control" 
+              value={currentEmployee.role}>
               {
                 roles.map((roleName, i) => 
-                  <option value={roleName} key={i} selected={currentEmployee.role == roleName}>
+                  <option value={roleName} key={i}>
                     {roleName}
                   </option>
                 )
               }
-            </select >)
+            </select >
 
           </div>
 
@@ -100,15 +102,16 @@ const Employee = (props) => {
             < select
               onChange={handleInputChange}
               id="department"
-              className="form-select" >
+              className="form-control" 
+              value={currentEmployee.department}>
               {
                 departments.map((departmentName, i) => 
-                  <option value={departmentName} key={i} selected={currentEmployee.department == departmentName}> 
+                  <option value={departmentName} key={i}> 
                     {departmentName}
                   </option>
                 )
               }
-            </select >)
+            </select >
           </div>
           </form>
 

@@ -12,14 +12,17 @@ const EmployeeList = () => {
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchName, setSearchName] = useState("");
 
-  const employees = useSelector(state => state.employees);
+  const employees = useSelector(state => {
+    console.log(state);
+    return state.employees;
+  });
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(retrieveEmployees());
   }, []);
 
-  const onChangeSearchTitle = e => {
+  const onChangeSearchName = e => {
     const searchTitle = e.target.value;
     setSearchName(searchTitle);
   };
@@ -59,7 +62,7 @@ const EmployeeList = () => {
             className="form-control"
             placeholder="Search by title"
             value={searchName}
-            onChange={onChangeSearchTitle}
+            onChange={onChangeSearchName}
           />
           <div className="input-group-append">
             <button
@@ -76,6 +79,7 @@ const EmployeeList = () => {
         <h4>Employees List</h4>
 
         <ul className="list-group">
+          {console.log(employees)}
           {employees &&
             employees.map((employee, index) => (
               <li
@@ -85,7 +89,7 @@ const EmployeeList = () => {
                 onClick={() => setActiveEmployee(employee, index)}
                 key={index}
               >
-                {employee.title}
+                {employee.name}
               </li>
             ))}
         </ul>

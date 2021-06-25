@@ -5,13 +5,13 @@ import { logout } from "../actions/auth";
 
 const NavBar = () => {
   const [showModeratorBoard, setShowModeratorBoard] = useState(false);
-  const [showAdminBoard, setShowAdminBoard] = useState(false);
+  const [haveAdminRole, setHaveAdminRole] = useState(false);
   const { user: currentUser } = useSelector((state) => state.auth);
-  
+
   useEffect(() => {
     if (currentUser) {
       setShowModeratorBoard(currentUser.roles.includes("ROLE_MODERATOR"));
-      setShowAdminBoard(currentUser.roles.includes("ROLE_ADMIN"));
+      setHaveAdminRole(currentUser.roles.includes("ROLE_ADMIN"));
     }
   }, [currentUser]);
 
@@ -40,7 +40,7 @@ const NavBar = () => {
           </li>
         )}
 
-        {showAdminBoard && (
+        {haveAdminRole && (
           <li className="nav-item">
             <Link to={"/employee"} className="nav-link">
               Admin Board
@@ -48,13 +48,21 @@ const NavBar = () => {
           </li>
         )}
 
-        {currentUser && (
+        {haveAdminRole && (
           <li className="nav-item">
-            <Link to={"/user"} className="nav-link">
-              User
+            <Link to={"/add"} className="nav-link">
+              Add Employee
             </Link>
           </li>
         )}
+
+        {/* {currentUser && (
+          <li className="nav-item">
+            <Link to={"/employee/" + currentUser.id} className="nav-link">
+              Employee Details
+            </Link>
+          </li>
+        )} */}
       </div>
 
       {currentUser ? (

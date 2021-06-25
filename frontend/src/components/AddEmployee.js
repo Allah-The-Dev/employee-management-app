@@ -9,8 +9,8 @@ const AddEmployee = () => {
   const initialEmployeeState = {
     id: null,
     name: "",
-    role: "",
-    department: ""
+    role: roles[0],
+    department: departments[0]
   };
   const [employee, setEmployee] = useState(initialEmployeeState);
   const [submitted, setSubmitted] = useState(false);
@@ -18,12 +18,16 @@ const AddEmployee = () => {
   const dispatch = useDispatch();
 
   const handleInputChange = event => {
+    // console.log(event.target.name)
+    // console.log(event.target.value)
     const { name, value } = event.target;
+    console.log(employee);
     setEmployee({ ...employee, [name]: value });
   };
 
   const saveEmployee = () => {
     const { name, role, department } = employee;
+    console.log(employee);
 
     dispatch(createEmployee(name, role, department))
       .then(data => {
@@ -67,7 +71,7 @@ const AddEmployee = () => {
               required
               value={employee.name}
               onChange={handleInputChange}
-              name="title"
+              name="name"
             />
           </div>
 
@@ -76,11 +80,17 @@ const AddEmployee = () => {
             < select
               onChange={handleInputChange}
               id="role"
-              className="form-select" >
+              className="form-select form-control"
+              value={employee.role}
+              name="role">
               {
-                roles.map((roleName, i) => <option value={roleName} key={i}>{roleName}</option>)
+                roles.map((roleName, i) =>
+                  <option value={roleName} key={i}>
+                    {roleName}
+                  </option>
+                )
               }
-            </select >)
+            </select >
 
           </div>
 
@@ -89,12 +99,17 @@ const AddEmployee = () => {
             < select
               onChange={handleInputChange}
               id="department"
-              className="form-select" >
+              className="form-select form-control" 
+              value={employee.department}
+              name="department">
               {
-                departments.map((departmentName, i) => 
-                  <option value={departmentName} key={i}>{departmentName}</option>)
+                departments.map((departmentName, i) =>
+                  <option value={departmentName} key={i}>
+                    {departmentName}
+                  </option>
+                )
               }
-            </select >)
+            </select >
           </div>
 
           <button onClick={saveEmployee} className="btn btn-success">

@@ -8,7 +8,7 @@ import {
 
 const initialState = [];
 
-function employeeReducer(employees = initialState, action) {
+function employees(employees = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
@@ -41,4 +41,4 @@ function employeeReducer(employees = initialState, action) {
   }
 };
 
-export default employeeReducer;
+export default employees;

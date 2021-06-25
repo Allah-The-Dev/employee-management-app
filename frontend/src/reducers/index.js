@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 import auth from "./auth";
 import message from "./message";
-import employeeReducer from "./employee";
+import employees from "./employee";
 
 export default combineReducers({
   auth,
   message,
-  employeeReducer
+  employees
 });
