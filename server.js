@@ -21,6 +21,8 @@ app.use(express.static(path.join(__dirname, "frontend/build")));
 // routes
 require("./app/routes/auth.routes")(app);
 require("./app/routes/user.routes")(app);
+require("./app/routes/employee.routes")(app);
+
 // ---------------- ADD THIS ----------------
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
